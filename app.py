@@ -31,6 +31,13 @@ def sd_api():
         'imageUrl': "data:image/png;base64, " + diffusion(prompt)
     }
 
+@app.route('/transcribe')
+def transcribe():
+    return render_template('transcribe.html')
+
+@app.route('/transcribe-api', methods=['POST'])
+def transcribe_api():
+    return 'hey'
 
 if __name__ == "__main__":
     app.run(debug=True)

@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}تفريغ الصوت{% endblock %}
+{% block body %}
+<div class="container mt-5">
+  <div class="mb-3">
+    <label for="formFile" class="form-label">تفريغ الصوت</label>
+    <input class="form-control" type="file" id="file">
+  </div>
+  <button class="btn btn-primary">اكتب</button>
+  <textarea class="form-control mt-2" name="toSummarize" id="toSummarize" rows="3" placeholder="التفريغ"></textarea>
+</div>
+<script src="{{ url_for('static', filename='transcribe.js')}}"></script>
+{% endblock %}
