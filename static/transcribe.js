@@ -8,7 +8,7 @@ button.addEventListener('click', async function () {
     button.style.borderColor = '#d4e9ff';
 
     const formData = new FormData();
-    formData.append('audioFile', fileInput.files[0]);
+    formData.append('file', fileInput.files[0]);
 
     try {
       const response = await fetch('/transcribe-api', {

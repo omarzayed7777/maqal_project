@@ -52,3 +52,8 @@ def diffusion(prompt):
         base64_string = image["base64"]
         output += base64_string
     return output
+
+def transcribe_function(path):
+    with open(path, "rb") as audio_file:
+        transcript = openai.Audio.transcribe("whisper-1", audio_file)
+    return transcript['text']

@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, Response
-from utils import chatgpt, diffusion
+from utils import chatgpt, diffusion, transcribe_function
+import tempfile
+import os
 
 app = Flask(__name__)
 
@@ -37,7 +39,30 @@ def transcribe():
 
 @app.route('/transcribe-api', methods=['POST'])
 def transcribe_api():
-    return 'hey'
+
+    # Assuming the audio file is sent as 'file' in the POST request
+    uploaded_file = request.files['file']
+    original_filename = uploaded_file.filename
+    _, file_extension = os.path.splitext(original_filename)
+    # Create a temporary file
+    with tempfile.NamedTemporaryFile(suffix=file_extension, delete=False) as temp_file:
+        temp_path = temp_file.name
+
+        # Save the uploaded file to the temporary path
+        uploaded_file.save(temp_path)
+
+        # Transcribe the audio
+        transcription = transcribe_function(temp_path)
+        print(transcription)
+
+        # Close the temporary file before removing it
+        temp_file.close()
+
+    # Remove the temporary file now that it's closed
+    os.remove(temp_path)
+
+    # Return the transcription as a response
+    return transcription
 
 if __name__ == "__main__":
     app.run(debug=True)
