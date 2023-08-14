@@ -123,3 +123,29 @@ function downloadImage() {
   // Remove the anchor element from the document after the download
   document.body.removeChild(downloadLink);
 }
+
+async function extendArticle() {
+  const chatDiv = document.getElementById('maqal');
+  const systemSettings = 'The user will input an article. Your job is to extend the article in Arabic. Only give the extension.';
+  const userInput = document.getElementById('maqal').value;
+  const response = await fetch('/gpt-api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      system_settings: systemSettings,
+      user_input: userInput,
+    }),
+  });
+  chatDiv.innerHTML += '\n\n';
+  const reader = response.body.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    const chunk = new TextDecoder().decode(value);
+    // Process the chunk of data (e.g., append it to the chatDiv)
+    chatDiv.innerHTML += chunk;
+  }
+  writeKeywords()
+}
