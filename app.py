@@ -39,6 +39,10 @@ def sd_api():
 def transcribe():
     return render_template('transcribe.html')
 
+@app.route('/chatbot')
+def chatbot():
+    return render_template('chatbot.html')
+
 @app.route('/transcribe-api', methods=['POST'])
 def transcribe_api():
 
