@@ -1,11 +1,11 @@
-const button = document.querySelector('.btn-primary');
+const transcribeButton = document.querySelector('#transcribeAudio');
 const textarea = document.getElementById('toSummarize');
 const fileInput = document.getElementById('file');
 
-button.addEventListener('click', async function () {
-    button.innerHTML = 'جاري التفريغ...'
-    button.style.background = '#d4e9ff';
-    button.style.borderColor = '#d4e9ff';
+transcribeButton.addEventListener('click', async function () {
+    transcribeButton.innerHTML = 'جاري التفريغ...'
+    transcribeButton.style.background = '#d4e9ff';
+    transcribeButton.style.borderColor = '#d4e9ff';
 
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
@@ -25,9 +25,9 @@ button.addEventListener('click', async function () {
     } catch (error) {
       console.error('Error:', error);
     }
-    button.innerHTML = 'اكتب'
-    button.style.background = '';
-    button.style.borderColor = '';
+    transcribeButton.innerHTML = 'اكتب'
+    transcribeButton.style.background = '';
+    transcribeButton.style.borderColor = '';
     writeKeywords()
   });
 
@@ -66,4 +66,43 @@ button.addEventListener('click', async function () {
       // Process the chunk of data (e.g., append it to the chatDiv)
       chatDiv.innerHTML += chunk;
     }
+    generateImage()
+  }
+
+  function generateImage() {
+    const promptInput = document.getElementById('keywords');
+    const drawButton = document.getElementById('drawButton');
+    const outputImage = document.getElementById('outputImage');
+    drawButton.style.backgroundColor = '#99d1ff';
+    drawButton.style.borderColor = '#99d1ff';
+    drawButton.innerHTML = 'جاري التحميل...';
+  
+    const prompt = promptInput.value;
+  
+    // Call your API endpoint with the prompt JSON data
+    fetch('/sd-api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ prompt: prompt })
+    })
+      .then(response => response.json())
+      .then(data => {
+        // Assuming your API returns the image URL in the 'imageUrl' field of the response
+        const imageUrl = data.imageUrl;
+        outputImage.src = imageUrl;
+        
+        // Reset the button styles and text after the image is fetched and displayed
+        drawButton.style.backgroundColor = '';
+        drawButton.style.borderColor = '';
+        drawButton.innerHTML = 'ارسم';
+      })
+      .catch(error => {
+        console.error('Error fetching data:', error);
+        // Reset the button styles and text in case of an error
+        drawButton.style.backgroundColor = '';
+        drawButton.style.borderColor = '';
+        drawButton.innerHTML = 'إعادة رسم';
+      });
   }

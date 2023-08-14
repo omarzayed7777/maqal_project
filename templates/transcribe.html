@@ -8,7 +8,7 @@
     <label for="formFile" class="form-label">تفريغ الصوت</label>
     <input class="form-control" type="file" id="file" name="file">
   </div>
-  <button class="btn btn-primary mt-2">اكتب</button>  
+  <button class="btn btn-primary mt-2" id="transcribeAudio">اكتب</button>  
 </div>
 <div class="container mt-5">
   <div class="form-group">
@@ -23,6 +23,29 @@
   <button class="btn btn-primary mt-2" onclick="clipboard('keywords')">نسخ</button>
 </div>
 </div>
-
+<div class="container mb-3 mt-5">
+  <div class="form-group">
+    <div class="row">
+      <div class="col">
+        <label class="mb-2">صناعة صورة</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" onclick="generateImage()" id="drawButton">ارسم</button>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+          <img id="outputImage" style="width: 300px; max-width: 70%;" class="mt-2 mx-auto d-block">
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <button class="btn btn-primary" onclick="downloadImage()" id="downloadButton">تنزيل الصورة</button>
+      </div>
+    </div>
+  </div>
+</div>
 <script src="{{ url_for('static', filename='transcribe.js')}}"></script>
 {% endblock %}

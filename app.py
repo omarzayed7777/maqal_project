@@ -31,7 +31,6 @@ def gpt_api():
 def sd_api():
     prompt = request.json.get('prompt')
     print(prompt)
-    time.sleep(30)
     return {
         'imageUrl': "data:image/png;base64, " + diffusion(translate_keywords(prompt))
     }
