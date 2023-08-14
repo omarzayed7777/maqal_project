@@ -28,6 +28,7 @@ button.addEventListener('click', async function () {
     button.innerHTML = 'اكتب'
     button.style.background = '';
     button.style.borderColor = '';
+    writeKeywords()
   });
 
   function clipboard(inputField) {
@@ -40,5 +41,29 @@ button.addEventListener('click', async function () {
   
      // Copy the text inside the text field
     navigator.clipboard.writeText(copyText.value);
-  
+  }
+
+  async function writeKeywords() {
+    const chatDiv = document.getElementById('keywords');
+    const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic.';
+    const userInput = document.getElementById('toSummarize').value;
+    const response = await fetch('/gpt-api', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        system_settings: systemSettings,
+        user_input: userInput,
+      }),
+    });
+    chatDiv.innerHTML = '';
+    const reader = response.body.getReader();
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = new TextDecoder().decode(value);
+      // Process the chunk of data (e.g., append it to the chatDiv)
+      chatDiv.innerHTML += chunk;
+    }
   }
