@@ -22,7 +22,6 @@ async function summarizeArticle() {
     chatDiv.innerHTML += chunk;
   }
   writeTitle()
-  writeKeywords()
 }
 
 function clipboard(inputField) {
@@ -61,6 +60,7 @@ async function writeKeywords() {
     // Process the chunk of data (e.g., append it to the chatDiv)
     chatDiv.innerHTML += chunk;
   }
+  generateImage()
 }
 
 async function writeTitle() {
@@ -86,10 +86,11 @@ async function writeTitle() {
     // Process the chunk of data (e.g., append it to the chatDiv)
     chatDiv.innerHTML += chunk;
   }
+  writeKeywords()
 }
 
 function generateImage() {
-  const promptInput = document.getElementById('imagePrompt');
+  const promptInput = document.getElementById('keywords');
   const drawButton = document.getElementById('drawButton');
   const outputImage = document.getElementById('outputImage');
   drawButton.style.backgroundColor = '#99d1ff';
@@ -115,14 +116,14 @@ function generateImage() {
       // Reset the button styles and text after the image is fetched and displayed
       drawButton.style.backgroundColor = '';
       drawButton.style.borderColor = '';
-      drawButton.innerHTML = 'ارسم';
+      drawButton.innerHTML = 'إعادة رسم';
     })
     .catch(error => {
       console.error('Error fetching data:', error);
       // Reset the button styles and text in case of an error
       drawButton.style.backgroundColor = '';
       drawButton.style.borderColor = '';
-      drawButton.innerHTML = 'ارسم';
+      drawButton.innerHTML = 'إعادة رسم';
     });
 }
 

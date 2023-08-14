@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request, Response
-from utils import chatgpt, diffusion, transcribe_function
+from utils import chatgpt, diffusion, transcribe_function, translate_keywords
 import tempfile
 import os
+import time
 
 app = Flask(__name__)
 
@@ -29,8 +30,10 @@ def gpt_api():
 @app.route('/sd-api', methods=['POST'])
 def sd_api():
     prompt = request.json.get('prompt')
+    print(prompt)
+    time.sleep(30)
     return {
-        'imageUrl': "data:image/png;base64, " + diffusion(prompt)
+        'imageUrl': "data:image/png;base64, " + diffusion(translate_keywords(prompt))
     }
 
 @app.route('/transcribe')

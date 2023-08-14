@@ -60,10 +60,11 @@ async function writeKeywords() {
     // Process the chunk of data (e.g., append it to the chatDiv)
     chatDiv.innerHTML += chunk;
   }
+  generateImage()
 }
 
 function generateImage() {
-  const promptInput = document.getElementById('imagePrompt');
+  const promptInput = document.getElementById('keywords');
   const drawButton = document.getElementById('drawButton');
   const outputImage = document.getElementById('outputImage');
   drawButton.style.backgroundColor = '#99d1ff';
@@ -96,7 +97,7 @@ function generateImage() {
       // Reset the button styles and text in case of an error
       drawButton.style.backgroundColor = '';
       drawButton.style.borderColor = '';
-      drawButton.innerHTML = 'ارسم';
+      drawButton.innerHTML = 'إعادة رسم';
     });
 }
 

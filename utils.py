@@ -57,3 +57,11 @@ def transcribe_function(path):
     with open(path, "rb") as audio_file:
         transcript = openai.Audio.transcribe("whisper-1", audio_file)
     return transcript['text']
+
+def translate_keywords(user_input):
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[{"role": "system", "content": 'You will be given a set of keywords. Translate them into English.'}, {"role": "user", "content": user_input}],
+        temperature=0
+    )
+    return response['choices'][0]['message']['content']

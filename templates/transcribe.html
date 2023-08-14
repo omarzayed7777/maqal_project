@@ -9,6 +9,7 @@
   </div>
   <button class="btn btn-primary">اكتب</button>
   <textarea class="form-control mt-2" name="toSummarize" id="toSummarize" rows="3" placeholder="التفريغ"></textarea>
+  <button class="btn btn-primary mt-2" onclick="clipboard('toSummarize')">نسخ</button>
 </div>
 <script src="{{ url_for('static', filename='transcribe.js')}}"></script>
 {% endblock %}
