@@ -2,9 +2,14 @@ import openai
 import os
 from dotenv import load_dotenv
 import requests
-
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.document_loaders import TextLoader
+from langchain.indexes import VectorstoreIndexCreator
+from langchain.chat_models import ChatOpenAI
+loader = TextLoader('questions.txt', encoding='utf-8')
+index = VectorstoreIndexCreator().from_loaders([loader])
 load_dotenv()
-openai.api_key = os.getenv('OPENAI_KEY')
+openai.api_key = os.getenv('OPENAI_API_KEY')
 ENGINE_ID = 'stable-diffusion-xl-1024-v1-0'
 API_HOST = 'https://api.stability.ai'
 stablediffusion_api_key = os.getenv('DREAMSTUDIO_KEY')
@@ -19,6 +24,9 @@ def chatgpt(system_settings, user_input):
     for x in response:
         if x.choices[0].delta.get('content'):
             yield x.choices[0].delta.content
+
+def modified_gpt(user_input):
+    return index.query(question=user_input, llm=ChatOpenAI())
 
 def diffusion(prompt):
     response = requests.post(

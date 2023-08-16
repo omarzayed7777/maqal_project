@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, Response
-from utils import chatgpt, diffusion, transcribe_function, translate_keywords
+from utils import chatgpt, diffusion, transcribe_function, translate_keywords, modified_gpt
 import tempfile
 import os
 import time
@@ -26,6 +26,11 @@ def gpt_api():
     system_settings = request.json.get('system_settings')
     user_input = request.json.get('user_input')
     return Response(chatgpt(system_settings, user_input))
+
+@app.route('/langchain-gpt', methods=['POST'])
+def langchain_gpt():
+    user_input = request.json.get('user_input')
+    return modified_gpt(user_input)
 
 @app.route('/sd-api', methods=['POST'])
 def sd_api():
