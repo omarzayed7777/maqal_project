@@ -44,7 +44,8 @@ async function sendMessage() {
       replyMessage.innerHTML += chunk;
     }
   }
-function fetchLangchain() {
+
+function langchainSend() {
   const userInput = document.getElementById('humanInput').value;
 
   const newMessage = document.createElement("div");
@@ -55,27 +56,26 @@ function fetchLangchain() {
   messageList.appendChild(newMessage);
 
   const replyMessage = document.createElement("div");
-  replyMessage.innerHTML = 'نفكر...'
   replyMessage.classList.add('botMessage')
   messageList.appendChild(replyMessage);
-  
+  replyMessage.innerHTML = 'نفكر...'
   document.getElementById('humanInput').value = '';
-  
-  const endpoint = '/langchain-gpt';  // Update this with your actual Flask endpoint
-  const data = { user_input: userInput };
+  const url = '/langchain-gpt'; // Replace with your API endpoint
 
-  fetch(endpoint, {
-      method: 'POST',
-      headers: {
-          'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(data)
+  const data = {
+    user_input: userInput
+  };
+
+  fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
   })
-  .then(response => response.text())  // Note: Using .text() instead of .json()
-  .then(output => {
-      replyMessage.innerHTML = output;
+  .then(response => response.text()) // Parse the response as plain text
+  .then(text => {
+    replyMessage.innerHTML = text; // Set the content of the replyMessage div
   })
-  .catch(error => {
-      console.error("Error:", error);
-  });
+  .catch(error => console.error('Error:', error));
 }

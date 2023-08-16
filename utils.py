@@ -27,7 +27,9 @@ def chatgpt(system_settings, user_input):
             yield x.choices[0].delta.content
 
 def modified_gpt(user_input):
-    return index.query(question=user_input, llm=ChatOpenAI())
+    response = index.query(question=user_input, llm=ChatOpenAI())
+    for x in response:
+        yield x
 
 def diffusion(prompt):
     response = requests.post(
