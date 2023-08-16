@@ -40,7 +40,6 @@ async function sendMessage() {
       const { done, value } = await reader.read();
       if (done) break;
       const chunk = new TextDecoder().decode(value);
-      // Process the chunk of data (e.g., append it to the chatDiv)
       replyMessage.innerHTML += chunk;
     }
   }
@@ -60,8 +59,7 @@ function langchainSend() {
   messageList.appendChild(replyMessage);
   replyMessage.innerHTML = 'نفكر...'
   document.getElementById('humanInput').value = '';
-  const url = '/langchain-gpt'; // Replace with your API endpoint
-
+  const url = '/langchain-gpt';
   const data = {
     user_input: userInput
   };
@@ -73,9 +71,9 @@ function langchainSend() {
     },
     body: JSON.stringify(data)
   })
-  .then(response => response.text()) // Parse the response as plain text
+  .then(response => response.text())
   .then(text => {
-    replyMessage.innerHTML = text; // Set the content of the replyMessage div
+    replyMessage.innerHTML = text;
   })
   .catch(error => console.error('Error:', error));
 }

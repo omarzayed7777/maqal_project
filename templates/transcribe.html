@@ -8,7 +8,7 @@
     <label for="formFile" class="form-label">تفريغ الصوت</label>
     <input class="form-control" type="file" id="file" name="file">
   </div>
-  <button class="btn btn-primary mt-2" id="transcribeAudio">اكتب</button>  
+  <button class="btn btn-primary mt-2" id="transcribeAudio" onclick="transcribeFunction()">اكتب</button>  
 </div>
 <div class="container mt-5">
   <div class="form-group">
@@ -47,5 +47,6 @@
     </div>
   </div>
 </div>
-<script src="{{ url_for('static', filename='transcribe.js')}}"></script>
+<script src="{{ url_for('static', filename='js/transcribe.js')}}"></script>
+<script src="{{ url_for('static', filename='js/utils.js')}}"></script>
 {% endblock %}
