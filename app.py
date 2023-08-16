@@ -2,7 +2,6 @@ from flask import Flask, render_template, request, Response
 from utils import chatgpt, diffusion, transcribe_function, translate_keywords, modified_gpt
 import tempfile
 import os
-import time
 
 app = Flask(__name__)
 
