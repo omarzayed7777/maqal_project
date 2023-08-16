@@ -2,7 +2,6 @@ import openai
 import os
 from dotenv import load_dotenv
 import requests
-from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.document_loaders import TextLoader
 from langchain.indexes import VectorstoreIndexCreator
 from langchain.chat_models import ChatOpenAI
@@ -28,8 +27,7 @@ def chatgpt(system_settings, user_input):
 
 def modified_gpt(user_input):
     response = index.query(question=user_input, llm=ChatOpenAI())
-    for x in response:
-        yield x
+    return response
 
 def diffusion(prompt):
     response = requests.post(
@@ -59,7 +57,6 @@ def diffusion(prompt):
     data = response.json()
     output = ''
     for i, image in enumerate(data["artifacts"]):
-        # Get the base64 string from the image dictionary
         base64_string = image["base64"]
         output += base64_string
     return output
