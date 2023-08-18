@@ -52,6 +52,8 @@ async function writeKeywords() {
 }
 
 async function extendArticle() {
+  const continueButton = document.getElementById('continue-button');
+  continueButton.setAttribute('disabled', '');
   const chatDiv = document.getElementById('maqal');
   const systemSettings = 'The user will input an article. Your job is to extend the article in Arabic. Only give the extension.';
   const userInput = document.getElementById('maqal').value;
@@ -73,6 +75,7 @@ async function extendArticle() {
     const chunk = new TextDecoder().decode(value);
     chatDiv.innerHTML += chunk;
   }
+  continueButton.removeAttribute('disabled');
 }
 
 function downloadImage() {
