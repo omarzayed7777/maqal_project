@@ -1,4 +1,6 @@
 async function writeArticle() {
+  const continueButton = document.getElementById('continue-button');
+  continueButton.setAttribute('disabled', '');
   const chatDiv = document.getElementById('maqal');
   const systemSettings = 'The user will input a title. Your job is to use the title to write an article in Arabic.';
   const userInput = document.getElementById('articleTitle').value;
@@ -20,6 +22,7 @@ async function writeArticle() {
     const chunk = new TextDecoder().decode(value);
     chatDiv.innerHTML += chunk;
   }
+  continueButton.removeAttribute('disabled');
   writeKeywords()
 }
 
