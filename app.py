@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, Response
-from utils import chatgpt, diffusion, transcribe_function, translate_keywords, modified_gpt
+from utils import chatgpt, diffusion, transcribe_function, translate_keywords, modified_gpt, split_string_into_chunks
 import tempfile
 import os
 
@@ -21,7 +21,10 @@ def summarize_article():
 def gpt_api():
     system_settings = request.json.get('system_settings')
     user_input = request.json.get('user_input')
-    return Response(chatgpt(system_settings, user_input))
+    #Token in Arabic != Token in English
+    if len(user_input) > 2000:
+        return Response(chatgpt(system_settings, split_string_into_chunks(user_input, 1000)))
+    return Response(chatgpt(system_settings, [user_input]))
 
 @app.route('/langchain-gpt', methods=['POST'])
 def langchain_gpt():

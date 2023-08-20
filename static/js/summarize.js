@@ -20,7 +20,7 @@ async function summarizeArticle() {
     const chunk = new TextDecoder().decode(value);
     chatDiv.innerHTML += chunk;
   }
-  writeTitle()
+  // writeTitle()
 }
 
 async function writeKeywords() {
