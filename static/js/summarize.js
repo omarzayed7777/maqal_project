@@ -1,6 +1,6 @@
 async function summarizeArticle() {
   const chatDiv = document.getElementById('summarized');
-  const systemSettings = 'The user will input a piece of text. Your job is to write a very short summary, in Arabic.';
+  const systemSettings = 'The user will input a piece of text. Your job is to write a short summary, in Arabic.';
   const userInput = document.getElementById('toSummarize').value;
   const response = await fetch('/gpt-api', {
     method: 'POST',
@@ -10,6 +10,7 @@ async function summarizeArticle() {
     body: JSON.stringify({
       system_settings: systemSettings,
       user_input: userInput,
+      chunk: true
     }),
   });
 
@@ -25,7 +26,7 @@ async function summarizeArticle() {
 
 async function writeKeywords() {
   const chatDiv = document.getElementById('keywords');
-  const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic.';
+  const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic, separated by commas.';
   const userInput = document.getElementById('summarized').value;
   const response = await fetch('/gpt-api', {
     method: 'POST',

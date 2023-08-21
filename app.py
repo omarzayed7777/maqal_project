@@ -21,8 +21,10 @@ def summarize_article():
 def gpt_api():
     system_settings = request.json.get('system_settings')
     user_input = request.json.get('user_input')
+    chunk = request.json.get('chunk')
+    print(chunk)
     #Token in Arabic != Token in English
-    return Response(chatgpt(system_settings, user_input.split('\n')))
+    return Response(chatgpt(system_settings, user_input, chunk))
 
 @app.route('/langchain-gpt', methods=['POST'])
 def langchain_gpt():
@@ -32,7 +34,7 @@ def langchain_gpt():
 @app.route('/sd-api', methods=['POST'])
 def sd_api():
     prompt = request.json.get('prompt')
-    print(prompt)
+    print(translate_keywords(prompt))
     return {
         'imageUrl': "data:image/png;base64, " + diffusion(translate_keywords(prompt))
     }

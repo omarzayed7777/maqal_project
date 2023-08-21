@@ -14,22 +14,24 @@ ENGINE_ID = 'stable-diffusion-xl-1024-v1-0'
 API_HOST = 'https://api.stability.ai'
 stablediffusion_api_key = os.getenv('DREAMSTUDIO_KEY')
 
-def chatgpt(system_settings, user_input):
-    for x in user_input:
-        if len(x) != 0:
-            if len(x) > 2000:
-                x = x[:2000]
-            response = openai.ChatCompletion.create(
-                model="gpt-3.5-turbo",
-                messages=[{"role": "system", "content": system_settings}, {"role": "user", "content": x}],
-                temperature=0,
-                stream=True
-            )
-            for x in response:
-                if x.choices[0].delta.get('content'):
-                    yield x.choices[0].delta.content
-            if len(user_input) != 1 and user_input[-1] != x:
-                yield '\n\n'
+def chatgpt(system_settings, user_input, chunk):
+    if chunk:
+        content = split_string_into_chunks(user_input, 3000)
+    else:
+        content = user_input
+    for x in content:
+        print('ganga')
+        response = openai.ChatCompletion.create(
+            model="gpt-3.5-turbo",
+            messages=[{"role": "system", "content": system_settings}, {"role": "user", "content": x}],
+            temperature=0,
+            stream=True
+        )
+        for x in response:
+            if x.choices[0].delta.get('content'):
+                yield x.choices[0].delta.content
+        if len(user_input) != 1 and user_input[-1] != x:
+            yield '\n'
 
 def modified_gpt(user_input):
     response = index.query(question=user_input, llm=ChatOpenAI())
@@ -57,9 +59,6 @@ def diffusion(prompt):
         },
     )
 
-    if response.status_code != 200:
-        raise Exception("Non-200 response: " + str(response.text))
-
     data = response.json()
     output = ''
     for i, image in enumerate(data["artifacts"]):
@@ -79,3 +78,13 @@ def translate_keywords(user_input):
         temperature=0
     )
     return response['choices'][0]['message']['content']
+
+def split_string_into_chunks(user_input, chunk_size):
+    chunks = []
+    string_length = len(user_input)
+    for i in range(0, string_length, chunk_size):
+        if i + chunk_size <= string_length:
+            chunks.append(user_input[i:i+chunk_size])
+        else:
+            chunks.append(user_input[i:string_length])
+    return chunks

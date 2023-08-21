@@ -34,7 +34,7 @@ async function transcribeFunction() {
 async function writeKeywords() {
   const chatDiv = document.getElementById('keywords');
   const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic.';
-  const userInput = document.getElementById('toSummarize').value;
+  const userInput = document.getElementById('toSummarize').value.slice(0, 3000);
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {
