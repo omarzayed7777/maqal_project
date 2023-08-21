@@ -1,6 +1,6 @@
 async function summarizeArticle() {
   const chatDiv = document.getElementById('summarized');
-  const systemSettings = 'The user will input a piece of text. Your job is to write a short summary, in Arabic.';
+  const systemSettings = 'The user will input a piece of text. Your job is to write a very short summary, in Arabic.';
   const userInput = document.getElementById('toSummarize').value;
   const response = await fetch('/gpt-api', {
     method: 'POST',
@@ -20,7 +20,7 @@ async function summarizeArticle() {
     const chunk = new TextDecoder().decode(value);
     chatDiv.innerHTML += chunk;
   }
-  // writeTitle()
+  writeTitle()
 }
 
 async function writeKeywords() {
