@@ -51,8 +51,9 @@ async function writeKeywords() {
 
 async function writeTitle() {
   const chatDiv = document.getElementById('title');
-  const systemSettings = 'You are given a short text. Give this text a suitable title.';
+  const systemSettings = 'You are given a short text. Give this text a suitable title in Arabic.';
   const userInput = document.getElementById('summarized').value;
+  console.log(userInput)
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {

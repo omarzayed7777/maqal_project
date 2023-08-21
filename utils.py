@@ -18,9 +18,8 @@ def chatgpt(system_settings, user_input, chunk):
     if chunk:
         content = split_string_into_chunks(user_input, 3000)
     else:
-        content = user_input
+        content = [user_input]
     for x in content:
-        print('ganga')
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "system", "content": system_settings}, {"role": "user", "content": x}],

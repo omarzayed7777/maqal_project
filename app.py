@@ -22,7 +22,6 @@ def gpt_api():
     system_settings = request.json.get('system_settings')
     user_input = request.json.get('user_input')
     chunk = request.json.get('chunk')
-    print(chunk)
     #Token in Arabic != Token in English
     return Response(chatgpt(system_settings, user_input, chunk))
 
