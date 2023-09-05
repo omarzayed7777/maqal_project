@@ -27,7 +27,7 @@ async function summarizeArticle() {
 async function writeKeywords() {
   const chatDiv = document.getElementById('keywords');
   const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic, separated by commas.';
-  const userInput = document.getElementById('summarized').value;
+  const userInput = document.getElementById('summarized').value.slice(0, 3000);
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {
@@ -52,7 +52,7 @@ async function writeKeywords() {
 async function writeTitle() {
   const chatDiv = document.getElementById('title');
   const systemSettings = 'You are given a short text. Give this text a suitable title in Arabic.';
-  const userInput = document.getElementById('summarized').value;
+  const userInput = document.getElementById('summarized').value.slice(0, 3000);
   console.log(userInput)
   const response = await fetch('/gpt-api', {
     method: 'POST',
