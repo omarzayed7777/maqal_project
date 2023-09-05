@@ -59,11 +59,7 @@ def diffusion(prompt):
     )
 
     data = response.json()
-    output = ''
-    for i, image in enumerate(data["artifacts"]):
-        base64_string = image["base64"]
-        output += base64_string
-    return output
+    return data["artifacts"][0]['base64']
 
 def transcribe_function(path):
     with open(path, "rb") as audio_file:
