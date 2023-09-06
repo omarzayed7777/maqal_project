@@ -11,6 +11,7 @@ loader = TextLoader('questions.txt', encoding='utf-8')
 index = VectorstoreIndexCreator().from_loaders([loader])
 openai.api_key = os.getenv('OPENAI_API_KEY')
 ENGINE_ID = 'stable-diffusion-xl-1024-v1-0'
+API_HOST = 'https://api.stability.ai'
 stablediffusion_api_key = os.getenv('DREAMSTUDIO_KEY')
 
 def chatgpt(system_settings, user_input, chunk):
@@ -37,7 +38,7 @@ def modified_gpt(user_input):
 
 def diffusion(prompt):
     response = requests.post(
-    f"https://api.stability.ai/v1/generation/{ENGINE_ID}/text-to-image",
+    f"{API_HOST}/v1/generation/{ENGINE_ID}/text-to-image",
     headers={
         "Content-Type": "application/json",
         "Accept": "application/json",
