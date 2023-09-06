@@ -4,8 +4,8 @@ async function transcribeFunction() {
     const textarea = document.getElementById('toSummarize');
     const fileInput = document.getElementById('file');
     transcribeButton.innerHTML = 'جاري التفريغ...'
-    transcribeButton.style.background = '#d4e9ff';
-    transcribeButton.style.borderColor = '#d4e9ff';
+    transcribeButton.style.background = '#99d1ff';
+    transcribeButton.style.borderColor = '#99d1ff';
 
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
