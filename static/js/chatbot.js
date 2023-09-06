@@ -1,12 +1,3 @@
-function toggleView() {
-    const chatView = document.querySelector('#chatView')
-    if (chatView.style.display == 'block') {
-        chatView.style.display = 'none';
-    } else {
-        chatView.style.display = 'block';
-    }
-}
-
 async function sendMessage() {
     const userInput = document.getElementById('humanInput').value;
 
