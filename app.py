@@ -54,7 +54,6 @@ def transcribe_api():
         temp_path = temp_file.name
         uploaded_file.save(temp_path)
         transcription = transcribe_function(temp_path)
-        print(transcription)
         temp_file.close()
     os.remove(temp_path)
     return transcription
