@@ -1,8 +1,8 @@
-const transcribeButton = document.querySelector('#transcribeAudio');
-const textarea = document.getElementById('toSummarize');
-const fileInput = document.getElementById('file');
 
 async function transcribeFunction() {
+    const transcribeButton = document.querySelector('#transcribeAudio');
+    const textarea = document.getElementById('toSummarize');
+    const fileInput = document.getElementById('file');
     transcribeButton.innerHTML = 'جاري التفريغ...'
     transcribeButton.style.background = '#d4e9ff';
     transcribeButton.style.borderColor = '#d4e9ff';
