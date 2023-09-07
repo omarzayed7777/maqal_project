@@ -4,4 +4,3 @@ openai
 requests
 langchain
 chromadb
-tiktoken
