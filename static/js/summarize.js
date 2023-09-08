@@ -1,7 +1,7 @@
 async function summarizeArticle() {
+  const userInput = document.getElementById('toSummarize').value;
   const chatDiv = document.getElementById('summarized');
   const systemSettings = 'The user will input a piece of text. Your job is to write a short summary, in Arabic.';
-  const userInput = document.getElementById('toSummarize').value;
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {
@@ -25,9 +25,9 @@ async function summarizeArticle() {
 }
 
 async function writeKeywords() {
+  const userInput = document.getElementById('summarized').value.slice(0, 3000);
   const chatDiv = document.getElementById('keywords');
   const systemSettings = 'You must write keywords/tags based on the user input. These keywords/tags must be in Arabic, separated by commas.';
-  const userInput = document.getElementById('summarized').value.slice(0, 3000);
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {
@@ -50,10 +50,9 @@ async function writeKeywords() {
 }
 
 async function writeTitle() {
+  const userInput = document.getElementById('summarized').value.slice(0, 3000);
   const chatDiv = document.getElementById('title');
   const systemSettings = 'You are given a short text. Give this text a suitable title in Arabic.';
-  const userInput = document.getElementById('summarized').value.slice(0, 3000);
-  console.log(userInput)
   const response = await fetch('/gpt-api', {
     method: 'POST',
     headers: {
@@ -86,14 +85,12 @@ function downloadImage() {
 }
 
 function generateImage() {
-  const promptInput = document.getElementById('keywords');
+  const prompt = document.getElementById('keywords').value;
   const drawButton = document.getElementById('drawButton');
   const outputImage = document.getElementById('outputImage');
   drawButton.style.backgroundColor = '#99d1ff';
   drawButton.style.borderColor = '#99d1ff';
   drawButton.innerHTML = 'جاري التحميل...';
-
-  const prompt = promptInput.value;
 
   fetch('/sd-api', {
       method: 'POST',
