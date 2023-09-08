@@ -23,7 +23,6 @@ def chatgpt(system_settings, user_input, chunk):
         response = openai.ChatCompletion.create(
             model="gpt-3.5-turbo",
             messages=[{"role": "system", "content": system_settings}, {"role": "user", "content": x}],
-            temperature=0,
             stream=True
         )
         for x in response:
