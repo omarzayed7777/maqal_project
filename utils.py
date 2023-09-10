@@ -26,7 +26,7 @@ def chatgpt(system_settings, user_input, chunk):
             stream=True
         )
         for x in response:
-            if x.choices[0].delta.get('content'):
+            if x.choices[0].finish_reason != "stop":
                 yield x.choices[0].delta.content
         if len(user_input) != 1 and user_input[-1] != x:
             yield '\n'
