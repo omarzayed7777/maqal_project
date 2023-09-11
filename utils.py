@@ -25,10 +25,10 @@ def chatgpt(system_settings, user_input, chunk):
             messages=[{"role": "system", "content": system_settings}, {"role": "user", "content": x}],
             stream=True
         )
-        for x in response:
-            if x.choices[0].finish_reason != "stop":
-                yield x.choices[0].delta.content
-        if len(user_input) != 1 and user_input[-1] != x:
+        for y in response:
+            if y.choices[0].finish_reason != "stop":
+                yield y.choices[0].delta.content
+        if len(content) != 1 and content[-1] != x:
             yield '\n'
 
 def modified_gpt(user_input):
