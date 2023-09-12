@@ -1,4 +1,3 @@
-
 async function transcribeFunction() {
     const transcribeButton = document.querySelector('#transcribeAudio');
     const textarea = document.getElementById('toSummarize');
