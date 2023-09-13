@@ -9,21 +9,18 @@ async function transcribeFunction() {
     const formData = new FormData();
     formData.append('file', fileInput.files[0]);
 
-    try {
-      const response = await fetch('/transcribe-api', {
-        method: 'POST',
-        body: formData,
-      });
+    const response = await fetch('/transcribe-api', {
+      method: 'POST',
+      body: formData,
+    });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const transcription = await response.text();
-      textarea.value = transcription;
-    } catch (error) {
-      console.error('Error:', error);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
+
+    const transcription = await response.text();
+    textarea.value = transcription;
+
     transcribeButton.innerHTML = 'اكتب'
     transcribeButton.style.background = '';
     transcribeButton.style.borderColor = '';
