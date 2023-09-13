@@ -25,7 +25,6 @@ async function sendMessage() {
         user_input: userInput,
       }),
     });
-    userInput.innerHTML = '';
     const reader = response.body.getReader();
     while (true) {
       const { done, value } = await reader.read();
