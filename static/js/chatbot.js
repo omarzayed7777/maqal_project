@@ -1,5 +1,6 @@
 async function sendMessage() {
     const userInput = document.getElementById('humanInput').value;
+    document.getElementById('humanInput').value = '';
 
     const newMessage = document.createElement("div");
     newMessage.classList.add('humanMessage')
@@ -14,7 +15,6 @@ async function sendMessage() {
     
     const systemSettings = 'You are a chat bot. Please reply in Arabic.';
 
-    document.getElementById('humanInput').value = '';
     const response = await fetch('/gpt-api', {
       method: 'POST',
       headers: {
