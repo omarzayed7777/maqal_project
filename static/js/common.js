@@ -44,3 +44,25 @@ function downloadImage() {
     copyText.select();
     navigator.clipboard.writeText(copyText.value);
   }
+
+async function chatgptCall(systemSettings, userInput, chatDiv, chunk) {
+  const response = await fetch('/gpt-api', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      system_settings: systemSettings,
+      user_input: userInput,
+      chunk: chunk
+    }),
+  });
+
+  const reader = response.body.getReader();
+  while (true) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    const chunk = new TextDecoder().decode(value);
+    chatDiv.innerHTML += chunk;
+  }
+}
