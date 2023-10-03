@@ -23,6 +23,7 @@ async function extendArticle() {
   const chatDiv = document.getElementById('maqal');
   const systemSettings = 'The user will input an article. Your job is to extend the article in Arabic. Only give the extension.';
   const userInput = document.getElementById('maqal').value;
+  chatDiv.innerHTML += ' ';
   await chatgptCall(systemSettings, userInput, chatDiv);
   continueButton.removeAttribute('disabled');
 }
